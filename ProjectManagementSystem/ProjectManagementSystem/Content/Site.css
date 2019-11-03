@@ -1,0 +1,102 @@
+﻿.navbar-inverse/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    margin-top:150px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+input[type="text"],
+input[type="password"] {
+    max-width: 280px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    .jumbotron {
+        margin-top: 20px;
+    }
+    .body-content {
+        padding: 0;
+    }
+}
+
+
+
+
+.gigs {
+    list-style: none;
+}
+
+.gigs > li {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.gigs > li .date {
+    background: #0fb26c;
+    color: white;
+    text-align: center;
+    width: 60px;
+    -ms-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.gigs > li .date .month {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 6px;
+}
+
+    .gigs > li .date .day {
+        background: #f7f7f7;
+        color: #333;
+        font-size: 20px;
+        padding: 6px 12px;
+    }
+
+.gigs > li .details {
+    position: absolute;
+    top: 0;
+    left: 70px;    
+}
+
+    .gigs > li .details .artist {
+        font-weight: bold;
+        display: block;
+    }
+
+    .gigs > li .details .genre {
+        font-size: 15px;
+    }
+
+
+
+
+
+
+
+
+/*bootstrap overrides*/
+
+.btn-default {
+    color: #fff;
+    background-color: #0fb36c;
+
+    font-weight:500;
+}
+	.tital{ font-size:16px; font-weight:500;}
+	 .bot-border{ border-bottom:1px #f8f8f8 solid;  margin:5px 0  5px 0}	
+
+.comment-margin{
+        margin-left: 1%;
+}

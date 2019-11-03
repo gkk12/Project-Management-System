@@ -1,0 +1,234 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="ProjectManagementSystem.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Project Managment System</title>
+
+   
+  
+   <%-- <link  rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
+      <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>--%>
+<%--    		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/w/dt/dt-1.10.18/datatables.min.css"/>
+ <script type="text/javascript" src="https://cdn.datatables.net/w/dt/dt-1.10.18/datatables.min.js"></script>--%>
+     <script src="Scripts/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="Scripts/DataTables/datatables.min.js"></script>
+    <script type="text/javascript" src="http://cdn.datatables.net/tabletools/2.2.1/js/dataTables.tableTools.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link href="Scripts/DataTables/datatables.min.css" rel="stylesheet" />
+    <link  rel="stylesheet" type="text/css" href="http://cdn.datatables.net/tabletools/2.2.1/css/dataTables.tableTools.min.css"/>
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+        <%--        <asp:ScriptReference Name="jquery" />--%>
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="respond" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a style="text-align:center" runat="server" href="~/">Project Management System</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                         <%if (Session["userId"]!=null){%>
+
+                                   <%if (Convert.ToBoolean(Session["isAdmin"])){%>
+
+                                  <li><a runat="server" href="~/Create">Create A Project</a></li>
+                                     <li><a runat="server" href="~/PendingAccounts">Account Requests</a></li>
+                                    <li><a runat="server" href="~/PendingComments">Pending Comments</a></li>
+                                      
+                                 <% } %>
+                                      
+                                 <% } %>
+
+                      
+                       
+                    </ul>
+                    <asp:LoginView runat="server" ViewStateMode="Disabled">
+                        <AnonymousTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                             
+                                  <%if (Session["userId"]!=null){%>
+
+                                   <%if (!Convert.ToBoolean(Session["isAdmin"])){%>
+
+                                  <li><a runat="server" href="~/ProjectSummary">Projects Summary</a></li>
+                                    
+                                      
+                                 <% } %>
+                                      
+                                 <% } %>
+
+
+                                  <%if (Session["userId"]!=null){%>
+
+                                   <%if (Convert.ToBoolean(Session["isAdmin"])){%>
+
+                                  <li class="notifications" style="position: relative;">
+                                    <a href="#">
+                                        <i class ="glyphicon glyphicon-globe"></i>
+                                        <span class="badge js-notificationCount hide" 
+                                            style="position: absolute; top:8px; right:0; background:#0fb26c" ></span>
+                                    </a>
+                                </li>
+                                    
+                                      
+                                 <% } %>
+                                      
+                                 <% } %>
+                              
+                               
+                                <% if (Session["userId"] == null)
+                                   {%>
+                                <li><a runat="server" href="~/SignUp.aspx">Sign Up</a></li>
+                                   <li><a runat="server" href="~/LoginForm.aspx">Log in</a></li>
+                                        <% } %> 
+                               <%if (Session["userId"] != null)
+                                 {%>
+
+                                   <li><a    id ="logout">Logout</a></li>
+                                      
+                                 <% } %>
+
+                                 
+
+                                
+                            </ul>
+                        </AnonymousTemplate>
+                      <%--  <LoggedInTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Manage" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
+                                <li>
+                                    <asp:LoginStatus  runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                </li>
+                            </ul>
+                        </LoggedInTemplate>--%>
+                    </asp:LoginView>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            
+        </div>
+    </form>
+    <script>
+        $(document).ready(function () {
+            $("#MainContent_projectDeadline").datepicker();
+
+            $("#logout").click(function () {
+                console.log('sfsdfds');
+                $.ajax({
+                    type: "POST",
+                    url: "Loginform.aspx/logout", // this for calling the web method function in cs code.  
+                    data: '{id: "' + 1 + '" }',// user name or email value  
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log('success');
+                        window.location = "LoginForm.aspx";
+                        //alert(response);
+                    },
+                    failure: function (response) {
+                        //console.log(response.d);
+                        //alert(response);
+                    }
+
+                });
+            });
+
+            var notice;
+        $.ajax({
+            url: 'notifications.asmx/GetNotifications',
+            method: 'post',
+            dataType: 'json',
+            success: function (data) {
+
+                if (data.length > 0) {
+                 //   console.log('in dfdsf');
+                    notice = data;
+                    $('.js-notificationCount').text(data.length).removeClass('hide');
+                    $(".notifications").popover({
+                        html: true,
+                        title: "Notifications",
+                        content: function () {
+                            var ret = '<a href=\'PendingComments\' style=\'text-decoration: none; color: black;\'> <ul>';
+                            for (i = 0; i < data.length; i++) {
+                                ret += '<li>' + data[i].DevName + ' commented on <b>' + data[i].title + '</b> at ' + data[i].commentTime + '</li>';
+                            }
+                            ret += '</ul> </a>';
+                            return ret;//notice[0];
+                        },
+                        placement: "bottom"
+                    }).on("shown.bs.popover", function () {
+                        $.ajax({
+                            url: 'notifications.asmx/MarkRead',
+                            method: 'post',
+                            dataType: 'json',
+                            success: function (data) {
+                                $('.js-notificationCount').text('').addClass('hide');
+                            }
+                        });
+                    });
+                }
+                if (data.length==0) {
+                    $('.js-notificationCount').text('').addClass('hide');
+                    $(".notifications").popover({
+                        html: true,
+                        title: "Notifications",
+                        content: function () {
+                            
+                            return 'No new notification.';
+                        },
+                        placement: "bottom"
+                    })
+                }
+            }
+        });
+       
+
+
+        });
+
+       
+
+
+    </script>
+</body>
+</html>
